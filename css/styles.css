@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.bg-pink {
+    background-color: rgb(216, 34, 104);
+}
+.carousel-img > img {
+    height: 300px;
+    width: 100vw;
+}
+.card > img {
+    height: 200px;
+    width: auto;
+}
+
+.container-icons >  .style-i {
+    color: white;
+    background-color: black;
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 50%;
+}
