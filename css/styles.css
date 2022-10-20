@@ -4,7 +4,11 @@
     box-sizing: border-box;
 }
 .bg-pink {
-    background-color: rgb(216, 34, 104);
+    background-color: rgb(177, 33, 88);
+}
+main {
+    background-color: rgb(177, 33, 88);
+    color: white;
 }
 .carousel-img > img {
     height: 300px;
@@ -14,11 +18,10 @@
     height: 200px;
     width: auto;
 }
-
 .container-icons >  .style-i {
     color: white;
     background-color: black;
-    font-size: 30px;
+    font-size: 20px;
     padding: 10px;
     border-radius: 50%;
 }
