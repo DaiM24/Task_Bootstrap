@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+.nav-img {
+    width: 230px; 
+    height: 70px;
 }
 .bg-pink {
     background-color: rgb(177, 33, 88);
@@ -20,8 +26,8 @@ main {
 .container-icons >  .style-i {
     color: white;
     background-color: black;
-    font-size: 20px;
-    padding: 10px;
+    font-size: 15px;
+    padding: 8px;
     border-radius: 50%;
 }
 .img-fluid {
@@ -34,10 +40,6 @@ main {
     background-size: cover;
     height: 100%;
 }
-/*.bg-img {
-    background-image: url(../assets/19296.jpg);
-    background-position-y: 60%;
-}*/
 .boder-pink {
     border-color: 2px solid rgb(177, 33, 88);
 }
