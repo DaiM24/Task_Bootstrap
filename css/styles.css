@@ -1,7 +1,6 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 .bg-pink {
     background-color: rgb(177, 33, 88);
@@ -25,8 +24,10 @@ main {
     padding: 10px;
     border-radius: 50%;
 }
-.form-heigth {
+.img-fluid {
+    height: 250px;
+    width: 100%;
+}
+.container-1 {
     height: 100vh;
-    
-    background-color: black;
 }
