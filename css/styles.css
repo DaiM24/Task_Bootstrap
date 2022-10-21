@@ -28,4 +28,23 @@ main {
     height: 250px;
     width: 100%;
 }
-
+.container-1 {
+    background-image: url(../assets/bg-concert.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+/*.bg-img {
+    background-image: url(../assets/19296.jpg);
+    background-position-y: 60%;
+}*/
+.boder-pink {
+    border-color: 2px solid rgb(177, 33, 88);
+}
+.text-pink {
+    color: rgb(177, 33, 88);
+    font-weight: bold;
+}
+.fs-pink {
+    font-size: 80px;
+}
