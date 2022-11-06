@@ -158,9 +158,9 @@ const data={
     ]
   }
 
-function setCards() {
+function createCards() {
     let card =``;
-    const settingCard = document.getElementById("cards");
+    const addCard = document.getElementById("cards");
     for(let i=0; i< data.eventos.length; i++){
         card+=`
         <div class="col">
@@ -171,14 +171,14 @@ function setCards() {
                     <p class="card-text">${data.eventos[i].description}</p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between ">
                         <span class="fst-italic mt-2 ms-2">Price $${data.eventos[i].price}</span>
-                        <a href="../pages/contact.html" class="btn btn-outline-warning me-md-2">Buy ticket</a>
+                        <a href="../pages/details.html" class="btn btn-outline-warning me-md-2">More Details</a>
                     </div>
                 </div>
             </div>
         </div>
         `;
     }
-    settingCard.innerHTML = card;
+    addCard.innerHTML = card;
 }
 
-setCards();
+createCards();
