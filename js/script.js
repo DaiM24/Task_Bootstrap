@@ -170,7 +170,7 @@ for(let i=0; i < data.eventos.length; i++){
   else{
     upcomingsaEvents.push(data.eventos[i]);
   }
-}
+};
 
 function createCards(id,data) {
     let card =``;
