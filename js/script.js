@@ -158,19 +158,35 @@ const data={
     ]
   }
 
-function createCards() {
+const pastEvents = [];
+console.log("Past Events", pastEvents);
+const upcomingsaEvents = [];
+console.log("Upcoming Events", upcomingsaEvents);
+const dateToCompare = Date.parse(data.fechaActual); //Timestamp
+
+for(let i=0; i < data.eventos.length; i++){
+  let dates = Date.parse(data.eventos[i].date);
+  if(dateToCompare < dates){
+    pastEvents.push(data.eventos[i]);
+  }
+  else{
+    upcomingsaEvents.push(data.eventos[i]);
+  }
+}
+
+function createCards(id,data) {
     let card =``;
-    const addCard = document.getElementById("cards");
-    for(let i=0; i< data.eventos.length; i++){
-        card+=`
+    const cardContainer = document.querySelector(id);
+    for(let i=0; i < data.length; i++){
+        card +=`
         <div class="col">
             <div class="card text-bg-dark h-100">
-                <img src="${data.eventos[i].image}" class="card-img-top" alt="...">
+                <img src="${data[i].image}" class="card-img-top" alt="img">
                 <div class="card-body text-center d-flex flex-column justify-content-between">
-                    <h5 class="card-title">${data.eventos[i].name}</h5>
-                    <p class="card-text">${data.eventos[i].description}</p>
+                    <h5 class="card-title">${data[i].name}</h5>
+                    <p class="card-text">${data[i].description}</p>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-between ">
-                        <span class="fst-italic mt-2 ms-2">Price $${data.eventos[i].price}</span>
+                        <span class="fst-italic mt-2 ms-2">Price $${data[i].price}</span>
                         <a href="../pages/details.html" class="btn btn-outline-warning me-md-2">More Details</a>
                     </div>
                 </div>
@@ -178,7 +194,20 @@ function createCards() {
         </div>
         `;
     }
-    addCard.innerHTML = card;
+  cardContainer.insertAdjacentHTML("beforeend", card)
 }
 
-createCards();
+let URLactual = window.location.pathname.split("/").pop();
+
+function URLexists(){
+  if(URLactual === "index.html"){
+    createCards('#container_home', data.eventos);
+  }
+  else if(URLactual === "upcomings_events.html"){
+    createCards('#container_upcoming', upcomingsaEvents);
+  }
+  else if(URLactual === "past_events.html"){
+    createCards('#container_past', pastEvents);
+  }
+}
+URLexists()
