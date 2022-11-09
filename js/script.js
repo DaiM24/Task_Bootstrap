@@ -208,4 +208,5 @@ function URLexists(){
     createCards('#container_past', pastEvents);
   }
 }
-URLexists()
+window.onload = URLexists();
+
