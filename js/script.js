@@ -1,4 +1,4 @@
-const data={
+const data = {
     fechaActual: "2022-01-01",
     eventos: [
       {
@@ -156,7 +156,7 @@ const data={
           price:250
       }
     ]
-  }
+  };
 
 const pastEvents = [];
 const upcomingsaEvents = [];
@@ -192,8 +192,8 @@ function createCards(id,data) {
         </div>
         `;
     }
-  cardContainer.insertAdjacentHTML("beforeend", card)
-}
+  cardContainer.insertAdjacentHTML("beforeend", card);
+};
 
 let URLactual = window.location.pathname.split("/").pop();
 
@@ -207,6 +207,6 @@ function URLexists(){
   else if(URLactual === "past_events.html"){
     createCards('#container_past', pastEvents);
   }
-}
+};
 window.onload = URLexists();
 
