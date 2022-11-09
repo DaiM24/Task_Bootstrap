@@ -159,9 +159,7 @@ const data={
   }
 
 const pastEvents = [];
-console.log("Past Events", pastEvents);
 const upcomingsaEvents = [];
-console.log("Upcoming Events", upcomingsaEvents);
 const dateToCompare = Date.parse(data.fechaActual); //Timestamp
 
 for(let i=0; i < data.eventos.length; i++){
