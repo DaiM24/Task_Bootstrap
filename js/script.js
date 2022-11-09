@@ -209,4 +209,4 @@ function URLexists(){
   }
 };
 window.onload = URLexists();
-
+console.log("Hello world")
