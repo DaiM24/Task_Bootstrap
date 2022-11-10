@@ -198,7 +198,7 @@ function createCards(id,data) {
 let URLactual = window.location.pathname.split("/").pop();
 
 function URLexists(){
-  if(URLactual === "index.html"){
+  if(URLactual === "index.html" || URLactual === ""){
     createCards('#container_home', data.eventos);
   }
   else if(URLactual === "upcomings_events.html"){
@@ -209,4 +209,4 @@ function URLexists(){
   }
 };
 window.onload = URLexists();
-console.log("Hello world")
+console.log("Hello")
