@@ -161,6 +161,7 @@ const data = {
 const pastEvents = [];
 const upcomingsaEvents = [];
 const dateToCompare = Date.parse(data.fechaActual); //Timestamp
+const categories = []
 
 for(let i=0; i < data.eventos.length; i++){
   let dates = Date.parse(data.eventos[i].date);
@@ -170,28 +171,63 @@ for(let i=0; i < data.eventos.length; i++){
   else{
     upcomingsaEvents.push(data.eventos[i]);
   }
+  if(!categories.includes(data.eventos[i].category)){
+    categories.push(data.eventos[i].category)
+  }
+
 };
 
-function createCards(id,data) {
-    let card =``;
-    const cardContainer = document.querySelector(id);
-    for(let i=0; i < data.length; i++){
-        card +=`
-        <div class="col">
-            <div class="card text-bg-dark h-100">
-                <img src="${data[i].image}" class="card-img-top" alt="img">
-                <div class="card-body text-center d-flex flex-column justify-content-between">
-                    <h5 class="card-title">${data[i].name}</h5>
-                    <p class="card-text">${data[i].description}</p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-between ">
-                        <span class="fst-italic mt-2 ms-2">Price $${data[i].price}</span>
-                        <a href="../pages/details.html" class="btn btn-outline-warning me-md-2">More Details</a>
-                    </div>
-                </div>
-            </div>
+/* */
+
+function selectCheck (){
+    let div = ``;
+    const containerInpunts = document.querySelector('#container_checks')
+    for(let i=0; i < categories.length; i++){
+      div += `
+        <div clinnerHTML ass="form-check form-check-inline mx-5 my-3">
+          <input class="form-check-input" type="checkbox" value="option1">
+          <label class="form-check-label me-3" for="inlineCheckbox1">${categories[i]}</label>
         </div>
-        `;
+    `;
     }
+    containerInpunts.insertAdjacentHTML("beforeend", div)
+}
+selectCheck()
+
+/* */
+
+/*const inputsCheck = document.querySelectorAll(".form-check-input");
+
+inputsCheck.forEach((inputCheck) => {
+  inputCheck.addEventListener("click", (event) =>{
+    if(event.target.checked){
+      alert("A hecho Click")
+    }
+  })
+})*/
+
+/* */
+
+function createCards(id,data) {
+  let card =``;
+  const cardContainer = document.querySelector(id);
+  for(let i=0; i < data.length; i++){
+    card +=`
+    <div class="col">
+      <div class="card text-bg-dark h-100">
+        <img src="${data[i].image}" class="card-img-top" alt="img">
+        <div class="card-body text-center d-flex flex-column justify-content-between">
+          <h5 class="card-title">${data[i].name}</h5>
+          <p class="card-text">${data[i].description}</p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-between ">
+            <span class="fst-italic mt-2 ms-2">Price $${data[i].price}</span>
+            <a href="../pages/details.html" class="btn btn-outline-warning me-md-2">More Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    `;
+  }
   cardContainer.insertAdjacentHTML("beforeend", card);
 };
 
@@ -208,5 +244,6 @@ function URLexists(){
     createCards('#container_past', pastEvents);
   }
 };
+
+
 window.onload = URLexists();
-console.log("Hello")
