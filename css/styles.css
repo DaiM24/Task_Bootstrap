@@ -55,3 +55,6 @@ a >  .style-i:hover {
 .card > .text-pink:hover {
     color: rgb(255, 255, 255);
 }
+.hidden {
+    display: none;
+}

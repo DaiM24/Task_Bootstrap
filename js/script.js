@@ -226,7 +226,7 @@ inputsCheck.forEach((inputCheck) => {
 
 function card(data) {
   return `
-  <div class="col">
+  <div class="col event">
     <div class="card text-bg-dark h-100">
       <img src="${data.image}" class="card-img-top" alt="img">
       <div class="card-body text-center d-flex flex-column justify-content-between">
@@ -247,22 +247,22 @@ function noEvent() {
   const containerImg = document.querySelector("#container_upcoming");
   div += `
   <div class="col-lg-4">
-  <div class="card text-bg-dark mb-3 ">
+    <div class="card text-bg-dark mb-3 ">
       <div class="card-body text-center">
           <h3 class="card-title fw-bold text-warning">Oops!</h3>
           <img src="../assets/pngwing.com.png" width="200" alt="">
           <h5 >No events Found</h5>
           <p class="card-text text-warning">There aren't events that match your current filters</p>
       </div>
+    </div>
   </div>
-</div>
   `;
   containerImg.insertAdjacentHTML("beforeend", div);
 }
 
 function createCards(id, data) {
   let cards = ``;
-  const cardContainer = document.querySelector(id);
+  const cardContainer = document.querySelector(id); 
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
@@ -295,5 +295,17 @@ function URLexists() {
     createCards("#container_past", pastEvents);
   }
 }
-
 window.onload = URLexists();
+
+const inputEvent = document.getElementById('search_event');
+const eventsCards = document.querySelectorAll('.event')
+
+inputEvent.addEventListener("keyup", (evento) => {
+  eventsCards.forEach((eventCard) => {
+    eventCard.textContent.toLowerCase().includes(evento.target.value.toLowerCase())
+    ? eventCard.classList.remove("hidden")
+    : eventCard.classList.add("hidden");
+  });
+});
+
+
