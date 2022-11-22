@@ -32,10 +32,6 @@ a >  .style-i {
 a >  .style-i:hover {
     background-color: rgb(177, 33, 88);
 }
-/*.img-fluid-card {
-    height: 250px;
-    width: 100%;
-}*/
 .container-1 {
     background-image: url(../assets/bg-concert.jpg);
     background-repeat: no-repeat;

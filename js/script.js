@@ -181,7 +181,7 @@ const dateToCompare = Date.parse(data.fechaActual); //Timestamp
 const categories = [];
 var actualEvents;
 var actualId;
-var search = {input:"", seted: false}
+var search = {input:"", seted: false};
 
 for (let i = 0; i < data.eventos.length; i++) {
   let dates = Date.parse(data.eventos[i].date);
@@ -195,21 +195,21 @@ for (let i = 0; i < data.eventos.length; i++) {
   ) {
     categories.push({ name: data.eventos[i].category, checked: false });
   }
-}
+};
 
 function selectCheck() {
   let div = ``;
   const containerInpunts = document.querySelector("#container_checks");
   for (let i = 0; i < categories.length; i++) {
     div += `
-        <div clinnerHTML ass="form-check form-check-inline mx-5 my-3">
-          <input class="form-check-input" type="checkbox" value="${categories[i].name}">
-          <label class="form-check-label me-3" for="inlineCheckbox1">${categories[i].name}</label>
-        </div>
+      <div clinnerHTML ass="form-check form-check-inline mx-5 my-3">
+        <input class="form-check-input" type="checkbox" value="${categories[i].name}">
+        <label class="form-check-label me-3" for="inlineCheckbox1">${categories[i].name}</label>
+      </div>
     `;
   }
   containerInpunts.insertAdjacentHTML("beforeend", div);
-}
+};
 
 function checkListener(){
   const inputsCheck = document.querySelectorAll(".form-check-input");
@@ -221,10 +221,10 @@ function checkListener(){
           category.checked ? (category.checked = false) : (category.checked = true);
         }
       });
-      createCards()
+      createCards();
     });
   });
-}
+};
 
 
 function card(data) {
@@ -243,7 +243,6 @@ function card(data) {
     </div>
   </div>
   `;
-  
 }
 
 function noEvent() {
@@ -284,7 +283,7 @@ function viewDetail() {
   </div>
   `;
   containerDetail.insertAdjacentHTML("beforeend", div);
-}
+};
 
 function createCards() {
   let cards = ``;
@@ -302,14 +301,13 @@ function createCards() {
     } else {
       cards += card(actualEvents[i]);
     }
-   
   }
   if (cards) {
     cardContainer.insertAdjacentHTML("beforeend", cards);
   } else {
     noEvent();
   }
-}
+};
 
 let URLactual = window.location.pathname.split("/").pop();
 
@@ -318,9 +316,9 @@ function mainRender(id,eventos,flag){
   actualEvents = eventos 
   actualId = id
   createCards();
-  checkListener()
-  searchEvent()
-  buttonListener()
+  checkListener();
+  searchEvent();
+  buttonListener();
 }
 
 function URLexists(flag) {
@@ -331,7 +329,7 @@ function URLexists(flag) {
   } else if (URLactual === "past_events.html") {
     mainRender("#container_past", pastEvents, flag);
   } else if (URLactual === "details.html"){
-    viewDetail()
+    viewDetail();
   }
 }
 window.onload = URLexists(false);
@@ -339,29 +337,29 @@ window.onload = URLexists(false);
 function searchEvent(){
   const inputEvent = document.getElementById('search_event');
   inputEvent.addEventListener("keyup", (evento) => {
-    const eventsCards = document.querySelectorAll('.event')
+    const eventsCards = document.querySelectorAll('.event');
     var counter = 0;
     eventsCards.forEach((eventCard) => {
       if(eventCard.textContent.toLowerCase().includes(evento.target.value.toLowerCase())){
-        eventCard.classList.remove("hidden")
+        eventCard.classList.remove("hidden");
       }
       else{
         counter++
         eventCard.classList.add("hidden");
       }
     });
-    counter == eventsCards.length ? noEvent() : document.getElementById('NoEvent').remove()
+    counter == eventsCards.length ? noEvent() : document.getElementById('NoEvent').remove();
   });
-}
+};
 
 function buttonListener(){
-  const buttons = document.querySelectorAll('.view-detail')
+  const buttons = document.querySelectorAll('.view-detail');
   buttons.forEach((button) => {
     button.addEventListener("click", () => {
       data.eventos.map((evento)=>{
         evento.name == button.id ? localStorage.setItem('myEvent', JSON.stringify(evento)) : null;
-      })
-    })
-  })
-}
+      });
+    });
+  });
+};
 
