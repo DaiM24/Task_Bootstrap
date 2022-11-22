@@ -263,16 +263,16 @@ function noEvent() {
   !document.getElementById('NoEvent')? containerImg.insertAdjacentHTML("beforeend", div) : null;
 }
 
-function viewDetal() {
+function viewDetail() {
   let evento = JSON.parse(localStorage.getItem('myEvent'));
   console.log(evento)
   localStorage.clear()
   const containerDetail = document.querySelector("#container_detail");
   let div = `
-  <div class="card text-bg-dark mb-3 m-auto" style="max-width: 1000px;">
-  <div class="row g-0">
+  <div class="card text-bg-dark mb-3 m-auto" style="max-width: 900px;">
+  <div class="row g-0 ">
     <div class="col-md-4">
-      <img src="${evento.image}" class="img-fluid rounded-start" alt="${evento.name}">
+      <img src="${evento.image}" class="img-fluid rounded-start detail-img" alt="${evento.name}">
     </div>
     <div class="col-md-8" >
       <div class="card-body h-100 d-flex flex-column justify-content-center">
@@ -331,7 +331,7 @@ function URLexists(flag) {
   } else if (URLactual === "past_events.html") {
     mainRender("#container_past", pastEvents, flag);
   } else if (URLactual === "details.html"){
-    viewDetal()
+    viewDetail()
   }
 }
 window.onload = URLexists(false);
