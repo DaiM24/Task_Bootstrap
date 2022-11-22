@@ -179,6 +179,9 @@ const pastEvents = [];
 const upcomingsaEvents = [];
 const dateToCompare = Date.parse(data.fechaActual); //Timestamp
 const categories = [];
+var actualEvents;
+var actualId;
+var search = {input:"", seted: false}
 
 for (let i = 0; i < data.eventos.length; i++) {
   let dates = Date.parse(data.eventos[i].date);
@@ -207,46 +210,46 @@ function selectCheck() {
   }
   containerInpunts.insertAdjacentHTML("beforeend", div);
 }
-selectCheck();
 
-const inputsCheck = document.querySelectorAll(".form-check-input");
+function checkListener(){
+  const inputsCheck = document.querySelectorAll(".form-check-input");
 
-inputsCheck.forEach((inputCheck) => {
-  inputCheck.addEventListener("click", (event) => {
-    categories.map((category) => {
-      if (event.target.value === category.name) {
-        category.checked
-          ? (category.checked = false)
-          : (category.checked = true);
-      }
+  inputsCheck.forEach((inputCheck) => {
+    inputCheck.addEventListener("click", (event) => {
+      categories.map((category) => {
+        if (event.target.value === category.name) {
+          category.checked ? (category.checked = false) : (category.checked = true);
+        }
+      });
+      createCards()
     });
-    URLexists();
   });
-});
+}
+
 
 function card(data) {
   return `
   <div class="col event">
     <div class="card text-bg-dark h-100">
-      <img src="${data.image}" class="card-img-top" alt="img">
+      <img src="${data.image}" class="card-img-top" alt="${data.name}">
       <div class="card-body text-center d-flex flex-column justify-content-between">
         <h5 class="card-title">${data.name}</h5>
         <p class="card-text">${data.description}</p>
         <div class="d-grid gap-2 d-md-flex justify-content-md-between ">
           <span class="fst-italic mt-2 ms-2">Price $${data.price}</span>
-          <a href="../pages/details.html" class="btn btn-outline-warning me-md-2">More Details</a>
+          <a href="../pages/details.html" class="btn btn-outline-warning me-md-2 view-detail" id="${data.name}">More Details</a>
         </div>
       </div>
     </div>
   </div>
   `;
+  
 }
 
 function noEvent() {
-  let div = ``;
-  const containerImg = document.querySelector("#container_upcoming");
-  div += `
-  <div class="col-lg-4">
+  const containerImg = document.querySelector(".no-event");
+  let div = `
+  <div class="col-lg-4" id="NoEvent">
     <div class="card text-bg-dark mb-3 ">
       <div class="card-body text-center">
           <h3 class="card-title fw-bold text-warning">Oops!</h3>
@@ -257,25 +260,49 @@ function noEvent() {
     </div>
   </div>
   `;
-  containerImg.insertAdjacentHTML("beforeend", div);
+  !document.getElementById('NoEvent')? containerImg.insertAdjacentHTML("beforeend", div) : null;
 }
 
-function createCards(id, data) {
+function viewDetal() {
+  let evento = JSON.parse(localStorage.getItem('myEvent'));
+  console.log(evento)
+  localStorage.clear()
+  const containerDetail = document.querySelector("#container_detail");
+  let div = `
+  <div class="card text-bg-dark mb-3 m-auto" style="max-width: 1000px;">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="${evento.image}" class="img-fluid rounded-start" alt="${evento.name}">
+    </div>
+    <div class="col-md-8" >
+      <div class="card-body h-100 d-flex flex-column justify-content-center">
+        <h5 class="card-title">${evento.name}</h5>
+        <p class="card-text">${evento.description}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  `;
+  containerDetail.insertAdjacentHTML("beforeend", div);
+}
+
+function createCards() {
   let cards = ``;
-  const cardContainer = document.querySelector(id); 
+  const cardContainer = document.querySelector(actualId); 
   while (cardContainer.firstChild) {
     cardContainer.removeChild(cardContainer.firstChild);
   }
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < actualEvents.length; i++) {
     if (categories.some((category) => category.checked === true)) {
       categories.map((category) => {
-        if (category.checked && category.name === data[i].category) {
-          cards += card(data[i]);
+        if (category.checked && category.name === actualEvents[i].category) {
+          cards += card(actualEvents[i]);
         }
       });
     } else {
-      cards += card(data[i]);
+      cards += card(actualEvents[i]);
     }
+   
   }
   if (cards) {
     cardContainer.insertAdjacentHTML("beforeend", cards);
@@ -286,26 +313,55 @@ function createCards(id, data) {
 
 let URLactual = window.location.pathname.split("/").pop();
 
-function URLexists() {
+function mainRender(id,eventos,flag){
+  flag ? null : selectCheck()
+  actualEvents = eventos 
+  actualId = id
+  createCards();
+  checkListener()
+  searchEvent()
+  buttonListener()
+}
+
+function URLexists(flag) {
   if (URLactual === "index.html" || URLactual === "") {
-    createCards("#container_home", data.eventos);
+    mainRender("#container_home", data.eventos, flag);
   } else if (URLactual === "upcomings_events.html") {
-    createCards("#container_upcoming", upcomingsaEvents);
+    mainRender("#container_upcoming", upcomingsaEvents, flag);
   } else if (URLactual === "past_events.html") {
-    createCards("#container_past", pastEvents);
+    mainRender("#container_past", pastEvents, flag);
+  } else if (URLactual === "details.html"){
+    viewDetal()
   }
 }
-window.onload = URLexists();
+window.onload = URLexists(false);
 
-const inputEvent = document.getElementById('search_event');
-const eventsCards = document.querySelectorAll('.event')
-
-inputEvent.addEventListener("keyup", (evento) => {
-  eventsCards.forEach((eventCard) => {
-    eventCard.textContent.toLowerCase().includes(evento.target.value.toLowerCase())
-    ? eventCard.classList.remove("hidden")
-    : eventCard.classList.add("hidden");
+function searchEvent(){
+  const inputEvent = document.getElementById('search_event');
+  inputEvent.addEventListener("keyup", (evento) => {
+    const eventsCards = document.querySelectorAll('.event')
+    var counter = 0;
+    eventsCards.forEach((eventCard) => {
+      if(eventCard.textContent.toLowerCase().includes(evento.target.value.toLowerCase())){
+        eventCard.classList.remove("hidden")
+      }
+      else{
+        counter++
+        eventCard.classList.add("hidden");
+      }
+    });
+    counter == eventsCards.length ? noEvent() : document.getElementById('NoEvent').remove()
   });
-});
+}
 
+function buttonListener(){
+  const buttons = document.querySelectorAll('.view-detail')
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      data.eventos.map((evento)=>{
+        evento.name == button.id ? localStorage.setItem('myEvent', JSON.stringify(evento)) : null;
+      })
+    })
+  })
+}
 
